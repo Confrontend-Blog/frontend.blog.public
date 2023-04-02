@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { CuiButton } from "../components/shared/button/cui-button";
-import * as S from "../styles/blog.styled";
-import { ArticleManagementCreate } from "../components/article/article-create/article-create";
-import { ArticleTeasersList } from "../components/article/article-teaser-list/article-teasers-list";
+import { CuiButton } from "../shared/button/cui-button";
+import * as S from "./blog-page.styled";
+import { ArticleManagementCreate } from "../article/article-create/article-create";
+import { ArticleTeasersList } from "../article/article-teaser-list/article-teasers-list";
 /**
  * Blog Page
  */

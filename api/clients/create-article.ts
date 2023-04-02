@@ -1,9 +1,9 @@
-import { config } from "./openapi/config";
+import { config } from "../openapi/config";
 import {
   ArticleDto,
   CreateArticleDto,
   DefaultApiFp as ArticlesApi,
-} from "./openapi/generated-clients/api";
+} from "../openapi/generated-clients/api";
 
 export const createArticle = async ({
   title,

@@ -4,7 +4,7 @@ import { CuiButton } from "../../shared/button/cui-button";
 import debounce from "lodash/debounce";
 import { Autocomplete, TextField } from "@mui/material";
 import { titleToSlug, truncateString } from "@/utils/string.util";
-import { createArticle } from "@/api/create-article";
+import { createArticle } from "@/api/clients/create-article";
 
 interface ArticleManagementCreateProps {
   cancelCb: () => void;

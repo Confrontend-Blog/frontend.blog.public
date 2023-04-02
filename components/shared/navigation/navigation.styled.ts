@@ -7,7 +7,11 @@ type NavigationWrapperProps = {
 export const NavigationWrapper = styled.span<NavigationWrapperProps>`
   background-color: #202125;
   display: flex;
-  
+
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
   flex-direction: row;
   align-items: center;
   column-gap: 1em;

@@ -1,11 +1,10 @@
 import { AxiosRequestConfig } from "axios";
-import { config } from "./openapi/config";
+import { config } from "../openapi/config";
 import {
   ArticleSummariesResponse,
   DefaultApiFp as ArticlesApi,
-} from "./openapi/generated-clients/api";
+} from "../openapi/generated-clients/api";
 
-// TODO Pagination
 export const getSummaries = async (
   page: number = 1,
   limit: number = 10

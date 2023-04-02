@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AxiosRequestConfig } from "axios";
 import { ArticleSummaryDto } from "../../../api/openapi/generated-clients";
-import { getSummaries } from "../../../api/get-article-summaries";
+import { getSummaries } from "../../../api/clients/get-article-summaries";
 import ArticleTeaser from "../article-teaser/article-teaser";
 
 import * as S from "./article-teasers-list.styled";

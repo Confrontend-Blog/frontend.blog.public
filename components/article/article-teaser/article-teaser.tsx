@@ -41,7 +41,6 @@ export default function ArticleTeaser({
               <h1>{title}</h1>
             </Link>
           </header>
-
           <ReactMarkdown
             // eslint-disable-next-line react/no-children-prop
             children={summary}
