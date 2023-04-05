@@ -30,7 +30,6 @@ export const getServerSideProps: GetServerSideProps<SlugPageProps> = async (
 ) => {
   const { slug } = context.params!;
 
-  // You can use the value of slug to fetch data for the page
   const data = slug?.toString() || "";
 
   return {

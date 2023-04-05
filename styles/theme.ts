@@ -31,7 +31,7 @@ const appTheme = {
     divider: colors.greyMedium,
     error: { main: colors.redMedium },
     info: { main: colors.blueMedium },
-    primary: { main: colors.greyVeryLight },
+    primary: { main: colors.greyLight },
     secondary: { dark: colors.greyLight, main: colors.greyDark },
     success: { main: colors.greenMedium },
     text: {
@@ -81,6 +81,9 @@ const appTheme = {
     subtitle1: {
       fontSize: "0.8rem",
       fontWeight: 250,
+    },
+    logo: {
+      fontFamily: "Futura",
     },
   },
 } as const;

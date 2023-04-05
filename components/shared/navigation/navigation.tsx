@@ -21,7 +21,7 @@ export const Navigation = ({
       {navMenuItems &&
         navMenuItems.map((item, index) => (
           <Link href={item.route} key={item.displayName}>
-            <span>{item.displayName}</span>
+            <S.Logo>{item.displayName}</S.Logo>
           </Link>
         ))}
       {rightSideItems && (
