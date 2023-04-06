@@ -5,7 +5,8 @@ type NavigationWrapperProps = {
 };
 
 export const NavigationWrapper = styled.span<NavigationWrapperProps>`
-  background-color: #202125;
+  backdrop-filter: blur(10px);
+  background-color: rgba(32, 33, 37, 0.5);
   display: flex;
 
   position: sticky;

@@ -3,8 +3,9 @@ import styled from "styled-components";
 export const TeaserContainer = styled.article`
   line-height: 1.5em;
   display: flex;
-  max-height: 10rem;
-  min-height: 10rem;
+  max-height: 12rem;
+  min-height: 12rem;
+
   flex-direction: column;
   .title {
     flex-shrink: 0;
@@ -37,6 +38,14 @@ export const TeaserContainer = styled.article`
     justify-content: space-between;
     align-items: center;
   }
+`;
+
+export const Summary = styled.span`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* Number of lines to show */
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const SkeletonContainer = styled.div`

@@ -5,3 +5,10 @@ export const TeaserDivider = styled.hr`
   margin-block-start: 4em;
   margin-block-end: 4em;
 `;
+
+export const TeaserListWrapper = styled.span`
+  display: flex;
+  flex-direction: column;
+  /* TODO find a better solution for layout shift */
+  min-height: 100vh;
+`;

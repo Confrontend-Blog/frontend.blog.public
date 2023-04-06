@@ -5,6 +5,7 @@ import * as S from "./layout.styled";
 import Image from "next/image";
 import { INavigation } from "../../shared/navigation/navigation.types";
 import Link from "next/link";
+import { Footer } from "../footer/footer";
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,7 +13,7 @@ interface LayoutProps {
 
 const Home: INavigation = {
   displayName: "Hamed Fatehi",
-  route: "./",
+  route: "/",
 };
 
 const Layout = ({ children }: LayoutProps) => {
@@ -32,6 +33,7 @@ const Layout = ({ children }: LayoutProps) => {
         }
       />
       <S.Main>{children}</S.Main>
+      <Footer />
     </S.Wrapper>
   );
 };

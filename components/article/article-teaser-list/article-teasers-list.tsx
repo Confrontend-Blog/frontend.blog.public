@@ -35,29 +35,35 @@ function ArticleTeasersList() {
 
   return (
     <>
-      {articleSummaries.map(
-        ({ title, summary, category, date, id, slug, author }) => (
-          <span key={id}>
-            <ArticleTeaser
-              title={title}
-              summary={summary}
-              category={category}
-              date={date}
-              slug={slug}
-              author={author}
-              loading={isLoading}
-            />
-            <S.TeaserDivider />
-          </span>
-        )
+      {isLoading ? (
+        <S.TeaserListWrapper />
+      ) : (
+        <>
+          {articleSummaries.map(
+            ({ title, summary, category, date, id, slug, author }) => (
+              <span key={id}>
+                <ArticleTeaser
+                  title={title}
+                  summary={summary}
+                  category={category}
+                  date={date}
+                  slug={slug}
+                  author={author}
+                  loading={isLoading}
+                />
+                <S.TeaserDivider />
+              </span>
+            )
+          )}
+          <Pagination
+            page={page}
+            isLoading={isLoading}
+            handlePreviousPage={handlePreviousPage}
+            handleNextPage={handleNextPage}
+            total={totalPages}
+          />
+        </>
       )}
-      <Pagination
-        page={page}
-        isLoading={isLoading}
-        handlePreviousPage={handlePreviousPage}
-        handleNextPage={handleNextPage}
-        total={totalPages}
-      />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
-import { ArticleManagementCreate } from "./article-create";
+import { ArticleCreate } from "./article-create";
 
 jest.mock("@confrontend/ui-library", () => ({
   CuiButton: ({
@@ -20,14 +20,14 @@ describe("ArticleManagementCreate", () => {
   });
 
   it("should call cancel callback when Cancel button is clicked", () => {
-    render(<ArticleManagementCreate cancelCb={cancelCb} />);
+    render(<ArticleCreate cancelCb={cancelCb} />);
     const cancelButton = screen.getByText("Cancel");
     fireEvent.click(cancelButton);
     expect(cancelCb).toHaveBeenCalledTimes(1);
   });
 
   it.todo("should call backend when Create button is clicked", () => {
-    render(<ArticleManagementCreate cancelCb={cancelCb} />);
+    render(<ArticleCreate cancelCb={cancelCb} />);
     const createButton = screen.getByText("Create");
     fireEvent.click(createButton);
     // expect(onCreatePost).toHaveBeenCalledTimes(1);

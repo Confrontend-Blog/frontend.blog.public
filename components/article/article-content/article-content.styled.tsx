@@ -13,8 +13,6 @@ export const ArticleWrapper = styled.article`
   margin: ${({ theme }) => theme.spacing(4)} auto;
   padding: ${({ theme }) => theme.spacing(4)};
   background-color: ${({ theme }) => theme.palette.background.default};
-  box-shadow: ${({ theme }) => theme.shadows[2]};
-  border-radius: ${({ theme }) => theme.shape.borderRadius};
 `;
 
 export const Title = styled.h1`
@@ -48,5 +46,6 @@ export const Date = styled.p`
 `;
 
 export const Content = styled.div`
+  line-height: ${({ theme }) => theme.typography.body1.lineHeight};
   grid-area: content;
 `;

@@ -5,8 +5,9 @@ import debounce from "lodash/debounce";
 import { Autocomplete, TextField } from "@mui/material";
 import { titleToSlug, truncateString } from "@/utils/string.util";
 import { createArticle } from "@/api/clients/create-article";
+import { convertToMarkdown } from "@/utils/markdown.util";
 
-interface ArticleManagementCreateProps {
+interface ArticleCreateProps {
   cancelCb: () => void;
 }
 
@@ -26,6 +27,7 @@ const modules = {
   ],
 };
 
+/**TODO fetch dynamically */
 const categories = [
   "Frontend",
   "Fullstack",
@@ -43,9 +45,7 @@ const categories = [
   "Version Control",
 ];
 
-export const ArticleManagementCreate = ({
-  cancelCb,
-}: ArticleManagementCreateProps) => {
+export const ArticleCreate = ({ cancelCb }: ArticleCreateProps) => {
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [content, setContent] = useState("");
@@ -56,6 +56,8 @@ export const ArticleManagementCreate = ({
   }, 500);
 
   const onBodyChange = (value: string) => {
+    console.log(value);
+
     setContent(value);
   };
 
@@ -65,12 +67,17 @@ export const ArticleManagementCreate = ({
   };
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const markdown = convertToMarkdown(content);
+
+    console.log(markdown);
+    
+
     event.preventDefault();
-    const summary = truncateString(content);
+    const summary = truncateString(markdown);
     createArticle({
       title,
       slug,
-      content,
+      content: markdown,
       category,
       summary,
       date: new Date().toISOString(),

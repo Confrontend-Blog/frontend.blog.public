@@ -45,7 +45,7 @@ const appTheme = {
     // body1 is typically used for longer text elements, such as paragraphs or articles,
     body1: {
       fontSize: "1rem",
-      lineHeight: 1.5,
+      lineHeight: 1.75,
     },
     // body2 is used for shorter text elements, such as captions or subheaders.
     body2: {
