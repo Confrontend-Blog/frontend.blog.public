@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from "axios";
+import { useData } from "../context/data.context";
 import { config } from "../openapi/config";
 import {
   ArticleSummariesResponse,

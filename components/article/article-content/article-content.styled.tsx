@@ -33,6 +33,7 @@ export const Author = styled.p`
 
 export const Category = styled.p`
   grid-area: category;
+  justify-self: end;
   font-size: ${({ theme }) => theme.typography.subtitle1.fontSize};
   font-weight: ${({ theme }) => theme.typography.subtitle1.fontWeight};
   color: ${({ theme }) => theme.palette.text.secondary};

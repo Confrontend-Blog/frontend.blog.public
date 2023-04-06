@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, Theme, ThemeOptions } from "@mui/material/styles";
 
 const colors = {
   blueMedium: "#2196f3",
@@ -81,10 +81,7 @@ const appTheme = {
     subtitle1: {
       fontSize: "0.8rem",
       fontWeight: 250,
-    },
-    logo: {
-      fontFamily: "Futura",
-    },
+    }
   },
 } as const;
 

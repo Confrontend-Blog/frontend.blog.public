@@ -1,66 +1,42 @@
-import { useState, useEffect } from "react";
-import { AxiosRequestConfig } from "axios";
-import { ArticleSummaryDto } from "../../../api/openapi/generated-clients";
-import { getSummaries } from "../../../api/clients/get-article-summaries";
+import { useState } from "react";
 import ArticleTeaser from "../article-teaser/article-teaser";
 
 import * as S from "./article-teasers-list.styled";
 import { Pagination } from "../../shared/pagination/pagination";
+import { useSummaries } from "@/hooks/use-summaries";
 
 function ArticleTeasersList() {
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  // TODO add feature for "Show x article in each page"
-  const [limit, setLimit] = useState(5);
-  const [isLoading, setIsLoading] = useState(false);
-  const [articleSummaries, setArticleSummaries] = useState<ArticleSummaryDto[]>(
-    []
-  );
-
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchArticleSummaries = async () => {
-      const data = await getSummaries(page, limit);
-      setArticleSummaries(data?.summaries || []);
-      if (data?.count) {
-        setTotalPages(Math.ceil(data.count / 5) || 0);
-      }
-      setIsLoading(false);
-    };
-    fetchArticleSummaries();
-  }, [page, limit]);
-
-  const handlePreviousPage = () => setPage(page - 1);
-  const handleNextPage = () => setPage(page + 1);
+  const { data, api } = useSummaries(page, 5);
 
   return (
     <>
-      {isLoading ? (
+      {api && api.status === "loading" ? (
         <S.TeaserListWrapper />
       ) : (
         <>
-          {articleSummaries.map(
-            ({ title, summary, category, date, id, slug, author }) => (
-              <span key={id}>
-                <ArticleTeaser
-                  title={title}
-                  summary={summary}
-                  category={category}
-                  date={date}
-                  slug={slug}
-                  author={author}
-                  loading={isLoading}
-                />
-                <S.TeaserDivider />
-              </span>
-            )
-          )}
+          {data &&
+            data.summaries.map(
+              ({ title, summary, category, date, id, slug, author }) => (
+                <span key={id}>
+                  <ArticleTeaser
+                    title={title}
+                    summary={summary}
+                    category={category}
+                    date={date}
+                    slug={slug}
+                    author={author}
+                    loading={api && api.status === "loading"}
+                  />
+                  <S.TeaserDivider />
+                </span>
+              )
+            )}
           <Pagination
             page={page}
-            isLoading={isLoading}
-            handlePreviousPage={handlePreviousPage}
-            handleNextPage={handleNextPage}
-            total={totalPages}
+            setPage={setPage}
+            isLoading={api && api.status === "loading"}
+            total={(data && data.count) || 1}
           />
         </>
       )}

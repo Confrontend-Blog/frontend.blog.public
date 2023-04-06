@@ -53,5 +53,5 @@ export const ItemRightWrapper = styled.span`
 `;
 
 export const Logo = styled.span`
-  font-family: ${({ theme }) => theme.typography.logo.fontFamily};
+  font-family: Futura;
 `;
