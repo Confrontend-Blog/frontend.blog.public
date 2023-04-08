@@ -21,7 +21,11 @@ export const ArticleCreateContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  border-radius: 1em;
+  border-radius: 0.5em;
+  padding: 1em;
+  form > * {
+    margin-bottom: 1em;
+  }
 `;
 
 export const Header = styled.div`
@@ -29,43 +33,36 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   font-weight: 600;
-  height: 2em;
+  height: 3em;
   line-height: 2em;
   vertical-align: middle;
-  padding: 0.5em;
 `;
 
-export const StyledTextField = styled(TextField)`
-  & .MuiInputBase-root {
-  }
-  & label {
-    color: ${v.color};
-  }
-  & .MuiInputBase-input {
-    color: ${v.color};
-    background-color: ${v.bg};
-  }
+export const StyledTextField = styled(TextField)``;
 
-  & .MuiInputBase-input:after {
-    border-bottom-color: ${v.bg};
-  }
-  & .MuiOutlinedInput-root {
-    & fieldset {
-      border: none;
-    }
-    &:hover fieldset {
-      border: none;
-    }
-    &.Mui-focused fieldset {
-      border: none;
-    }
-  }
-`;
-
-export const StyledReactQuill = styled(ReactQuill)`
+export const SummaryQuill = styled(ReactQuill)`
   background-color: ${v.bg};
-  display: flex;
-  flex-direction: column;
+  border: none !important;
+  .ql-container {
+    border: none !important;
+    .ql-editor {
+      font-size: 1.2em;
+      color: ${v.color};
+      border: none !important;
+    }
+  }
+  .ql-toolbar {
+    z-index: 1;
+    position: sticky;
+    top: 0;
+    background-color: ${v.bg};
+    border: none !important;
+    border-bottom: 1px solid ${v.color} !important;
+  }
+`;
+
+export const ContentQuill = styled(ReactQuill)`
+  background-color: ${v.bg};
   border: none !important;
   .ql-container {
     border: none !important;
@@ -87,31 +84,32 @@ export const StyledReactQuill = styled(ReactQuill)`
 `;
 
 export const Slug = styled.div`
-  padding: 0.5em 1em;
   color: ${v.color};
   font-size: smaller;
+`;
+
+export const Summary = styled(ReactQuill)`
+
 `;
 
 export const ReactQuillWrapper = styled.div``;
 
 export const Footer = styled.div`
-  /* padding: 1em 0.3em 0.3em 0.3em; */
   display: flex;
   justify-content: flex-end;
   align-items: right;
   vertical-align: middle;
   border-top: 1px solid ${v.color} !important;
-  padding: 1em;
 `;
 
 export const StyledAutocomplete = styled(Autocomplete)`
-  & .MuiInputBase-root {
+  .MuiInputBase-root {
     background-color: ${v.bg};
   }
 `;
 
 export const AutocompletePopper = styled(Popper)`
-  & .${autocompleteClasses.listbox} {
+  .${autocompleteClasses.listbox} {
     font-size: 0.9em;
   }
 `;

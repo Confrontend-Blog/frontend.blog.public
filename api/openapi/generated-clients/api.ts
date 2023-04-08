@@ -292,15 +292,15 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {string} id 
+         * @param {string} slug 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        articlesControllerFindOne: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('articlesControllerFindOne', 'id', id)
-            const localVarPath = `/articles/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+        articlesControllerFindOne: async (slug: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'slug' is not null or undefined
+            assertParamExists('articlesControllerFindOne', 'slug', slug)
+            const localVarPath = `/articles/{slug}`
+                .replace(`{${"slug"}}`, encodeURIComponent(String(slug)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -469,12 +469,12 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} id 
+         * @param {string} slug 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async articlesControllerFindOne(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArticleDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.articlesControllerFindOne(id, options);
+        async articlesControllerFindOne(slug: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArticleDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.articlesControllerFindOne(slug, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -546,12 +546,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @param {string} id 
+         * @param {string} slug 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        articlesControllerFindOne(id: string, options?: any): AxiosPromise<ArticleDto> {
-            return localVarFp.articlesControllerFindOne(id, options).then((request) => request(axios, basePath));
+        articlesControllerFindOne(slug: string, options?: any): AxiosPromise<ArticleDto> {
+            return localVarFp.articlesControllerFindOne(slug, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -625,13 +625,13 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @param {string} id 
+     * @param {string} slug 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public articlesControllerFindOne(id: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).articlesControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    public articlesControllerFindOne(slug: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).articlesControllerFindOne(slug, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

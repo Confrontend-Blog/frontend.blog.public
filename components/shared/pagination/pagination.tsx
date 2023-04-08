@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -15,31 +16,43 @@ const PaginationContainer = styled.div`
 `;
 
 interface PaginationProps {
-  page: number;
   total: number;
   isLoading: boolean;
-  setPage: (page: number) => void;
 }
 
-const Pagination = ({ page, total, isLoading, setPage }: PaginationProps) => {
+const Pagination = ({ total, isLoading }: PaginationProps) => {
+  const router = useRouter();
+
+  const { page = "1" } = router.query;
+  const queryParamPage = parseInt(page as string, 10);
+
+  const [currentPage, setCurrentPage] = useState(queryParamPage);
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     setTotalPages(Math.ceil(total / 5) || 0);
   }, [total]);
 
-  const handlePreviousPage = () => setPage(page - 1);
-  const handleNextPage = () => setPage(page + 1);
+  const onPreviousPage = () => setCurrentPage(currentPage - 1);
+  const handleNextPage = () => setCurrentPage(currentPage + 1);
+
+  useEffect(() => {
+    router.push(`/?page=${currentPage}`);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
 
   return (
     <PaginationContainer>
-      <Button onClick={handlePreviousPage} disabled={page === 1}>
+      <Button onClick={onPreviousPage} disabled={currentPage === 1}>
         <ChevronLeft color="warning" fontSize="large" />
       </Button>
       <div>
-        Page {page} of {totalPages}
+        Page {currentPage} of {totalPages}
       </div>
-      <Button onClick={handleNextPage} disabled={isLoading || page === total}>
+      <Button
+        onClick={handleNextPage}
+        disabled={isLoading || currentPage === total}
+      >
         <ChevronRight color="primary" fontSize="large" />
       </Button>
     </PaginationContainer>

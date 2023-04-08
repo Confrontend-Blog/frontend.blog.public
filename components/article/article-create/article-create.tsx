@@ -48,6 +48,7 @@ const categories = [
 export const ArticleCreate = ({ cancelCb }: ArticleCreateProps) => {
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
+  const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState(categories[0]);
 
@@ -56,8 +57,6 @@ export const ArticleCreate = ({ cancelCb }: ArticleCreateProps) => {
   }, 500);
 
   const onBodyChange = (value: string) => {
-    console.log(value);
-
     setContent(value);
   };
 
@@ -67,19 +66,16 @@ export const ArticleCreate = ({ cancelCb }: ArticleCreateProps) => {
   };
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const markdown = convertToMarkdown(content);
-
-    console.log(markdown);
-    
+    const contentMarkdown = convertToMarkdown(content);
+    const summaryMarkdown = convertToMarkdown(summary);
 
     event.preventDefault();
-    const summary = truncateString(markdown);
     createArticle({
       title,
       slug,
-      content: markdown,
+      content: contentMarkdown,
       category,
-      summary,
+      summary: summaryMarkdown,
       date: new Date().toISOString(),
       author: "H",
     })
@@ -96,7 +92,7 @@ export const ArticleCreate = ({ cancelCb }: ArticleCreateProps) => {
       <form onSubmit={onSubmit}>
         <S.StyledTextField
           fullWidth
-          variant="filled"
+          variant="standard"
           label="Title"
           value={title}
           onChange={onTitleChange}
@@ -105,6 +101,13 @@ export const ArticleCreate = ({ cancelCb }: ArticleCreateProps) => {
         <S.Slug>
           {!slug ? "Slug is auto generated based on title" : slug}
         </S.Slug>
+        <S.SummaryQuill
+          placeholder="Summary text here..."
+          modules={modules}
+          value={summary}
+          onChange={(e) => setSummary(e)}
+        />
+
         <S.StyledAutocomplete
           fullWidth
           defaultValue={categories[0]}
@@ -118,12 +121,13 @@ export const ArticleCreate = ({ cancelCb }: ArticleCreateProps) => {
             <S.StyledTextField
               {...params}
               label="Category"
-              variant="filled"
+              variant="standard"
               required
             />
           )}
         />
-        <S.StyledReactQuill
+        <S.ContentQuill
+          placeholder="Content text here..."
           modules={modules}
           value={content}
           onChange={onBodyChange}
