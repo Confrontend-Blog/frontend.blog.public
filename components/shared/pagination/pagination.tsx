@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const PaginationContainer = styled.div`
@@ -18,25 +18,41 @@ const PaginationContainer = styled.div`
 interface PaginationProps {
   total: number;
   isLoading: boolean;
-  currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
 }
 
-const Pagination = ({
-  total,
-  isLoading,
-  setCurrentPage,
-  currentPage,
-}: PaginationProps) => {
+const Pagination = ({ total, isLoading }: PaginationProps) => {
   const router = useRouter();
 
-  const onPreviousPage = () => setCurrentPage((prev: number) => prev - 1);
-  const handleNextPage = () => setCurrentPage((prev: number) => prev + 1);
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(router.query.page as string) || 1
+  );
+
+  const totalPages = Math.ceil(total / 5) || 1;
+
+  const onPreviousPage = () => setCurrentPage(currentPage - 1);
+  const handleNextPage = () => setCurrentPage(currentPage + 1);
 
   useEffect(() => {
     router.push(`/?page=${currentPage}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
+
+  /* If a user clicks on site logo, they will be redirected to home page (page 1)
+   * But this won't be picked up buy Pagination component unless it listens to it.
+   */
+  useEffect(() => {
+    const handleRouteChange = () => {
+      const { page } = router.query;
+      // user is redirected to home page via clicking on site logo
+      page === undefined && setCurrentPage(1);
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events, router.query]);
 
   return (
     <PaginationContainer>
@@ -44,11 +60,11 @@ const Pagination = ({
         <ChevronLeft color="warning" fontSize="large" />
       </Button>
       <div>
-        Page {currentPage} of {total}
+        Page {currentPage} of {totalPages}
       </div>
       <Button
         onClick={handleNextPage}
-        disabled={isLoading || currentPage === total}
+        disabled={isLoading || currentPage === totalPages}
       >
         <ChevronRight color="primary" fontSize="large" />
       </Button>

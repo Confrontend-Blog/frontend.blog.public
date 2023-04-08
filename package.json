@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -p 5000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start  -p 5001",
     "lint": "next lint",
     "api:clients": "node ./node_modules/@openapitools/openapi-generator-cli/main.js generate -i ../blog.articles.service/openapi/specs/api-blog.json -g typescript-axios -o ./api/openapi/generated-clients --type-mappings=typescript-functional"
   },

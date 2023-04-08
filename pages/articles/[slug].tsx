@@ -1,5 +1,4 @@
 import { getArticleBySlug } from "@/api/clients/get-article-by-slug";
-import { useData } from "@/api/context/data.context";
 import { ArticleDto } from "@/api/openapi/generated-clients";
 import { ArticleContent } from "@/components/article/article-content/article-content";
 import { GetServerSideProps } from "next";
