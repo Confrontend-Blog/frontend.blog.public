@@ -5,8 +5,8 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { ArticleSummaryDto } from "../../../api/openapi/generated-clients";
 import ArticleTeaserSkeleton from "./article-teaser-skeleton";
-import Link from "next/link";
 import { articlesEndpoint } from "@/api/openapi/config";
+import { IconTwoLetter } from "@/components/icon-tech-categories/icon-tech-categories";
 
 export default function ArticleTeaser({
   title,
@@ -38,9 +38,12 @@ export default function ArticleTeaser({
                 </a>
               )}
             </h5>
-            <Link href={`/${articlesEndpoint}/${slug}`} className="title">
+            <S.StyledLink
+              href={`/${articlesEndpoint}/${slug}`}
+              className="title"
+            >
               <h1>{title}</h1>
-            </Link>
+            </S.StyledLink>
           </header>
           <S.Summary>
             <ReactMarkdown

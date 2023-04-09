@@ -15,10 +15,7 @@ export const getSummaries = async (
       limit,
     },
   };
-
   const { apiConfig } = config;
-  console.log("api");
-
   try {
     const res = await ArticlesApi(apiConfig).articlesControllerFindAllSummaries(
       options

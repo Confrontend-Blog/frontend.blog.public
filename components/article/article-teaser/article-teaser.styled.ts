@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 export const TeaserContainer = styled.article`
   line-height: 1.5em;
@@ -38,6 +39,10 @@ export const TeaserContainer = styled.article`
     justify-content: space-between;
     align-items: center;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  margin-inline-start: 1em;
 `;
 
 export const Summary = styled.span`
