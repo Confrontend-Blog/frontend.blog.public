@@ -27,8 +27,6 @@ export const getServerSideProps: GetServerSideProps<SlugPageProps> = async (
 ) => {
   const { slug } = context.params!;
 
-  console.log("slugslugslugslugslugslugslugslug", slug);
-
   const data = slug ? await getArticleBySlug(slug as string) : null;
 
   return {
