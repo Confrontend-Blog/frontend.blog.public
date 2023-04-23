@@ -1,7 +1,7 @@
 import { ReactNode, MouseEvent } from "react";
 import * as S from "./cui-button.styled";
 
-type CuiButtonProps = {
+export type CuiButtonProps = {
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   children: ReactNode;
   color?: string;
@@ -39,4 +39,4 @@ const CuiButton = ({
   );
 };
 
-export { CuiButton };
+export default CuiButton;

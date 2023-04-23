@@ -15,7 +15,6 @@ export const createArticle = async ({
   slug,
 }: CreateArticleDto): Promise<ArticleDto | void> => {
   const { apiConfig } = config;
-  console.log("date", date);
 
   try {
     const res = await ArticlesApi(apiConfig).articlesControllerCreate({

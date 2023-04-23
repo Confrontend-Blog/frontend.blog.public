@@ -9,7 +9,6 @@ import { ArticleSummaryDto } from "@/api/openapi/generated-clients";
 function ArticleTeasersList() {
   const summaries = useData();
 
-
   return (
     <>
       {summaries.api && summaries.api.status === "loading" ? (
@@ -35,7 +34,9 @@ function ArticleTeasersList() {
                     date={date}
                     slug={slug}
                     author={author}
-                    loading={summaries.api && summaries.api.status === "loading"}
+                    loading={
+                      summaries.api && summaries.api.status === "loading"
+                    }
                   />
                   <S.TeaserDivider />
                 </span>
