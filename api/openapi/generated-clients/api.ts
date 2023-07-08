@@ -75,6 +75,32 @@ export interface ArticleDto {
 /**
  * 
  * @export
+ * @interface ArticleSlugsDto
+ */
+export interface ArticleSlugsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof ArticleSlugsDto
+     */
+    'slug': string;
+}
+/**
+ * 
+ * @export
+ * @interface ArticleSlugsResponse
+ */
+export interface ArticleSlugsResponse {
+    /**
+     * 
+     * @type {Array<ArticleSlugsDto>}
+     * @memberof ArticleSlugsResponse
+     */
+    'slugs': Array<ArticleSlugsDto>;
+}
+/**
+ * 
+ * @export
  * @interface ArticleSummariesResponse
  */
 export interface ArticleSummariesResponse {
@@ -198,46 +224,12 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
-         * @param {CreateArticleDto} createArticleDto 
+         * @summary Find all slugs
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        articlesControllerCreate: async (createArticleDto: CreateArticleDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createArticleDto' is not null or undefined
-            assertParamExists('articlesControllerCreate', 'createArticleDto', createArticleDto)
-            const localVarPath = `/articles`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createArticleDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        articlesControllerFindAll: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/articles`;
+        articlesControllerFindAllSlugs: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/articles/slugs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -292,6 +284,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Find article of a given  slug
          * @param {string} slug 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -325,15 +318,14 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {string} id 
+         * @param {CreateArticleDto} createArticleDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        articlesControllerGetArticleSummary: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('articlesControllerGetArticleSummary', 'id', id)
-            const localVarPath = `/articles/{id}/summary`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+        articlesMgmtControllerCreate: async (createArticleDto: CreateArticleDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createArticleDto' is not null or undefined
+            assertParamExists('articlesMgmtControllerCreate', 'createArticleDto', createArticleDto)
+            const localVarPath = `/articles/mgmt`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -341,15 +333,18 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createArticleDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -362,10 +357,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        articlesControllerRemove: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        articlesMgmtControllerRemove: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('articlesControllerRemove', 'id', id)
-            const localVarPath = `/articles/{id}`
+            assertParamExists('articlesMgmtControllerRemove', 'id', id)
+            const localVarPath = `/articles/mgmt/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -396,12 +391,12 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        articlesControllerUpdate: async (id: string, body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        articlesMgmtControllerUpdate: async (id: string, body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('articlesControllerUpdate', 'id', id)
+            assertParamExists('articlesMgmtControllerUpdate', 'id', id)
             // verify required parameter 'body' is not null or undefined
-            assertParamExists('articlesControllerUpdate', 'body', body)
-            const localVarPath = `/articles/{id}`
+            assertParamExists('articlesMgmtControllerUpdate', 'body', body)
+            const localVarPath = `/articles/mgmt/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -440,21 +435,12 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {CreateArticleDto} createArticleDto 
+         * @summary Find all slugs
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async articlesControllerCreate(createArticleDto: CreateArticleDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArticleDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.articlesControllerCreate(createArticleDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async articlesControllerFindAll(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ArticleDto>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.articlesControllerFindAll(options);
+        async articlesControllerFindAllSlugs(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArticleSlugsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.articlesControllerFindAllSlugs(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -469,6 +455,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Find article of a given  slug
          * @param {string} slug 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -479,12 +466,12 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} id 
+         * @param {CreateArticleDto} createArticleDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async articlesControllerGetArticleSummary(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArticleSummaryDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.articlesControllerGetArticleSummary(id, options);
+        async articlesMgmtControllerCreate(createArticleDto: CreateArticleDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateArticleDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.articlesMgmtControllerCreate(createArticleDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -493,8 +480,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async articlesControllerRemove(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.articlesControllerRemove(id, options);
+        async articlesMgmtControllerRemove(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.articlesMgmtControllerRemove(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -504,8 +491,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async articlesControllerUpdate(id: string, body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArticleDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.articlesControllerUpdate(id, body, options);
+        async articlesMgmtControllerUpdate(id: string, body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.articlesMgmtControllerUpdate(id, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -520,20 +507,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @param {CreateArticleDto} createArticleDto 
+         * @summary Find all slugs
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        articlesControllerCreate(createArticleDto: CreateArticleDto, options?: any): AxiosPromise<ArticleDto> {
-            return localVarFp.articlesControllerCreate(createArticleDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        articlesControllerFindAll(options?: any): AxiosPromise<Array<ArticleDto>> {
-            return localVarFp.articlesControllerFindAll(options).then((request) => request(axios, basePath));
+        articlesControllerFindAllSlugs(options?: any): AxiosPromise<ArticleSlugsResponse> {
+            return localVarFp.articlesControllerFindAllSlugs(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -546,6 +525,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Find article of a given  slug
          * @param {string} slug 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -555,12 +535,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @param {string} id 
+         * @param {CreateArticleDto} createArticleDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        articlesControllerGetArticleSummary(id: string, options?: any): AxiosPromise<ArticleSummaryDto> {
-            return localVarFp.articlesControllerGetArticleSummary(id, options).then((request) => request(axios, basePath));
+        articlesMgmtControllerCreate(createArticleDto: CreateArticleDto, options?: any): AxiosPromise<CreateArticleDto> {
+            return localVarFp.articlesMgmtControllerCreate(createArticleDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -568,8 +548,8 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        articlesControllerRemove(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.articlesControllerRemove(id, options).then((request) => request(axios, basePath));
+        articlesMgmtControllerRemove(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.articlesMgmtControllerRemove(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -578,8 +558,8 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        articlesControllerUpdate(id: string, body: object, options?: any): AxiosPromise<ArticleDto> {
-            return localVarFp.articlesControllerUpdate(id, body, options).then((request) => request(axios, basePath));
+        articlesMgmtControllerUpdate(id: string, body: object, options?: any): AxiosPromise<object> {
+            return localVarFp.articlesMgmtControllerUpdate(id, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -593,23 +573,13 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
 export class DefaultApi extends BaseAPI {
     /**
      * 
-     * @param {CreateArticleDto} createArticleDto 
+     * @summary Find all slugs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public articlesControllerCreate(createArticleDto: CreateArticleDto, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).articlesControllerCreate(createArticleDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public articlesControllerFindAll(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).articlesControllerFindAll(options).then((request) => request(this.axios, this.basePath));
+    public articlesControllerFindAllSlugs(options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).articlesControllerFindAllSlugs(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -625,6 +595,7 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
+     * @summary Find article of a given  slug
      * @param {string} slug 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -636,13 +607,13 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @param {string} id 
+     * @param {CreateArticleDto} createArticleDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public articlesControllerGetArticleSummary(id: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).articlesControllerGetArticleSummary(id, options).then((request) => request(this.axios, this.basePath));
+    public articlesMgmtControllerCreate(createArticleDto: CreateArticleDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).articlesMgmtControllerCreate(createArticleDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -652,8 +623,8 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public articlesControllerRemove(id: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).articlesControllerRemove(id, options).then((request) => request(this.axios, this.basePath));
+    public articlesMgmtControllerRemove(id: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).articlesMgmtControllerRemove(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -664,8 +635,8 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public articlesControllerUpdate(id: string, body: object, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).articlesControllerUpdate(id, body, options).then((request) => request(this.axios, this.basePath));
+    public articlesMgmtControllerUpdate(id: string, body: object, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).articlesMgmtControllerUpdate(id, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
