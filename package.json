@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev -p 5000",
     "build": "next build",
-    "start": "next start  -p 5001",
+    "start": "next start",
     "lint": "next lint",
-    "api:clients": "node ./node_modules/@openapitools/openapi-generator-cli/main.js generate -i ../blog.articles.service/openapi/specs/api-blog.json -g typescript-axios -o ./api/openapi/generated-clients --type-mappings=typescript-functional"
+    "api:clients": "node ./node_modules/@openapitools/openapi-generator-cli/main.js generate -i ../blog.articles.service/openapi/specs/api-articles.json -g typescript-axios -o ./api/openapi/generated-clients --type-mappings=typescript-functional",
+    "deploy": "gcloud app deploy --project=confrontend-blog-public"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -35,6 +36,8 @@
     "react-quill": "^2.0.0",
     "react-syntax-highlighter": "^15.5.0",
     "remark-gfm": "^3.0.1",
+    "sharp": "^0.32.6",
+    "short-uuid": "^4.2.2",
     "styled-components": "^5.3.9",
     "turndown": "^7.1.2",
     "typescript": "5.0.3",

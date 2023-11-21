@@ -1,29 +1,34 @@
-import { AxiosRequestConfig } from "axios";
-import { config } from "../openapi/config";
+import { AxiosError, AxiosRequestConfig } from "axios";
+import { getAllSummariesApiFacade } from "../openapi/config";
 import {
   ArticleSummariesResponse,
-  DefaultApiFp as ArticlesApi,
+  DefaultApiAxiosParamCreator as ArticleAxiosApi,
 } from "../openapi/generated-clients/api";
+
+export type ApiResponse<T> = {
+  data?: T;
+  error?: string;
+};
 
 export const getSummaries = async (
   page: number = 1,
   limit: number = 10
-): Promise<ArticleSummariesResponse | void> => {
+): Promise<ArticleSummariesResponse | null> => {
   const options: AxiosRequestConfig = {
     params: {
       page,
       limit,
     },
   };
-  const { apiConfig } = config;
+
   try {
-    const res = await ArticlesApi(apiConfig).articlesControllerFindAllSummaries(
-      options
-    );
-    const data = (await res()).data;
-    return data;
-  } catch (error) {
-    console.error("api error", error);
-    return Promise.resolve();
+    const res = await getAllSummariesApiFacade(options);
+
+    return res.data ?? null;
+  } catch (error: any) {
+    const typedErr = error as AxiosError;
+    console.log(typedErr.message);
+    console.log(typedErr.request);
+    return null;
   }
 };

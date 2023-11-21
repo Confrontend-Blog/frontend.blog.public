@@ -5,10 +5,11 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { ArticleSummaryDto } from "../../../api/openapi/generated-clients";
 import ArticleTeaserSkeleton from "./article-teaser-skeleton";
-import { articlesEndpoint } from "@/api/openapi/config";
 import { IconTwoLetter } from "@/components/icon-tech-categories/icon-tech-categories";
+import short from "short-uuid";
 
 export default function ArticleTeaser({
+  id,
   title,
   summary,
   category,
@@ -16,8 +17,11 @@ export default function ArticleTeaser({
   slug,
   author,
   loading,
-}: Omit<ArticleSummaryDto, "id"> & { loading: boolean }) {
-  const isAdmin = true;
+}: ArticleSummaryDto & { loading: boolean }) {
+  const translator = short();
+
+  // Convert UUID to a shorter form
+  const shortId = translator.fromUUID(id);
 
   return (
     <S.TeaserContainer>
@@ -32,14 +36,9 @@ export default function ArticleTeaser({
               <span>
                 {category} | {date}
               </span>
-              {isAdmin && (
-                <a href="#" className="edit">
-                  <span>✎ Edit</span>
-                </a>
-              )}
             </h5>
             <S.StyledLink
-              href={`/${articlesEndpoint}/${slug}`}
+              href={`/articles/${slug}-${shortId}`}
               className="title"
             >
               <h1>{title}</h1>

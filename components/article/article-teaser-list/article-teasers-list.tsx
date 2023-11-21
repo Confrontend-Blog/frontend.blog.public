@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ArticleTeaser from "../article-teaser/article-teaser";
 
 import * as S from "./article-teasers-list.styled";
-import { Pagination } from "../../shared/pagination/pagination";
+import Pagination from "../../shared/pagination/pagination";
 import { useData } from "@/hooks/use-data";
 import { ArticleSummaryDto } from "@/api/openapi/generated-clients";
 
@@ -28,6 +28,7 @@ function ArticleTeasersList() {
               }: ArticleSummaryDto) => (
                 <span key={id}>
                   <ArticleTeaser
+                    id={id}
                     title={title}
                     summary={summary}
                     category={category}

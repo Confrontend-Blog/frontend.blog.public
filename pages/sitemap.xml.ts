@@ -2,8 +2,6 @@ import { getSlugs } from "@/api/clients/get-slugs";
 import { ArticleSlugsDto } from "@/api/openapi/generated-clients";
 import { GetServerSideProps } from "next/types";
 
-const BASE_URL = "http://localhost:8080";
-
 function generateSiteMap(slugs: ArticleSlugsDto[] | null) {
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -15,7 +13,7 @@ function generateSiteMap(slugs: ArticleSlugsDto[] | null) {
          .map(({ slug }: { slug: string }) => {
            return `
        <url>
-           <loc>${`${BASE_URL}/${slug}`}</loc>
+           <loc>${`${process.env.BASE_URL}/${slug}`}</loc>
        </url>
      `;
          })

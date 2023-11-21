@@ -12,7 +12,7 @@ interface LayoutProps {
 }
 
 const Home: INavigation = {
-  displayName: "Hamed Fatehi",
+  displayName: "Confrontend",
   route: "/",
 };
 

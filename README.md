@@ -1,5 +1,7 @@
 ## TODO
 
+- Figure out why .env.local overrides .env.production. currently it is renamedmanually to env.local.
+
 - Make artciles accessible also under category url
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

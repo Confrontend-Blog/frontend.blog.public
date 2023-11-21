@@ -44,6 +44,11 @@ export const getServerSideProps: GetServerSideProps = async (
       },
     };
   } catch (error) {
+    console.log(
+      "File: index.tsx, funciton: getServerSideProps value:error:",
+      error
+    );
+
     return {
       props: {
         summaries: {

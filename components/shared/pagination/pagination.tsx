@@ -72,4 +72,4 @@ const Pagination = ({ total, isLoading }: PaginationProps) => {
   );
 };
 
-export { Pagination };
+export default Pagination;
