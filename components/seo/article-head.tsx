@@ -1,15 +1,13 @@
 import { ArticleDto } from "@/api/openapi/generated-clients";
 import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 
 interface ArticleHeadProps {
   data: ArticleDto;
-  slugUrl: string;
+  fullUrl: string;
 }
 
-export const ArticleHead = ({ data, slugUrl }: ArticleHeadProps) => {
-  const fullUrl =
-    typeof window !== "undefined" ? `${window.location.origin}${slugUrl}` : "";
-
+export const ArticleHead = ({ data, fullUrl }: ArticleHeadProps) => {
   return (
     <NextSeo
       title={data.title}

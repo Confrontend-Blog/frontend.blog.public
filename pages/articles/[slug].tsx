@@ -3,22 +3,19 @@ import { getArticleById } from "@/api/clients/get-article-by-slug";
 import { ArticleDto } from "@/api/openapi/generated-clients";
 import { ArticleContent } from "@/components/article/article-content/article-content";
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
 import { ArticleHead } from "@/components/seo/article-head";
 import short from "short-uuid";
 
 interface SlugPageProps {
   data: ArticleDto | null;
+  fullUrl: string;
 }
 
-export default function SlugPage({ data }: SlugPageProps) {
-  const router = useRouter();
-  const { asPath } = router;
-
+export default function SlugPage({ data, fullUrl }: SlugPageProps) {
   return (
     data && (
       <>
-        <ArticleHead data={data} slugUrl={asPath} />
+        <ArticleHead data={data} fullUrl={fullUrl} />
         <ArticleContent
           title={data.title}
           author={data.author}
@@ -35,8 +32,13 @@ export default function SlugPage({ data }: SlugPageProps) {
 export const getServerSideProps: GetServerSideProps<SlugPageProps> = async (
   context
 ) => {
-  const { params } = context;
+  const { req, params } = context;
+  const host = req.headers.host;
+  const protocol = (req.headers["x-forwarded-proto"] as string) || "http";
+
+  // Construct the full URL
   const { slug } = params || {};
+  const fullUrl = `${protocol}://${host}/articles/${slug}`;
 
   const slugStr = String(slug);
   // slug example: the-benefits-of-regular-exercise-bssEn8DQS9PDHVpG64GFiE
@@ -53,8 +55,6 @@ export const getServerSideProps: GetServerSideProps<SlugPageProps> = async (
 
   const data = uuid ? await getArticleById(uuid) : null;
 
-  console.log({ data });
-
   if (!data) {
     return { notFound: true };
   }
@@ -62,6 +62,7 @@ export const getServerSideProps: GetServerSideProps<SlugPageProps> = async (
   return {
     props: {
       data,
+      fullUrl,
     },
   };
 };
