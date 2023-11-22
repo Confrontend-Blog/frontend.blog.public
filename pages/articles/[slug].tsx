@@ -14,13 +14,11 @@ interface SlugPageProps {
 export default function SlugPage({ data }: SlugPageProps) {
   const router = useRouter();
   const { asPath } = router;
-  const fullUrl = process.env.BASE_URL + asPath;
-  console.log("fullUrl", fullUrl);
 
   return (
     data && (
       <>
-        <ArticleHead data={data} fullUrl={fullUrl} />
+        <ArticleHead data={data} slugUrl={asPath} />
         <ArticleContent
           title={data.title}
           author={data.author}
@@ -54,6 +52,8 @@ export const getServerSideProps: GetServerSideProps<SlugPageProps> = async (
   }
 
   const data = uuid ? await getArticleById(uuid) : null;
+
+  console.log({ data });
 
   if (!data) {
     return { notFound: true };
