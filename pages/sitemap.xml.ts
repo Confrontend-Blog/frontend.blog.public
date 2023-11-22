@@ -1,4 +1,6 @@
-import { getSlugs } from "@/api/clients/get-slugs";
+// TODO
+
+// import { getSlugs } from "@/api/clients/get-slugs";
 import { ArticleSlugsDto } from "@/api/openapi/generated-clients";
 import { GetServerSideProps } from "next/types";
 
@@ -28,17 +30,17 @@ function SiteMap() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const slugs = await getSlugs();
+  // const slugs = await getSlugs();
 
   // Generate the XML sitemap dynamically
-  const sitemap = generateSiteMap(slugs);
+  // const sitemap = generateSiteMap(slugs);
 
   // Cache the sitemap for up to 24 hours (86400 seconds)
-  res.setHeader("Cache-Control", "s-maxage=86400, stale-while-revalidate");
+  // res.setHeader("Cache-Control", "s-maxage=86400, stale-while-revalidate");
 
-  res.setHeader("Content-Type", "text/xml");
+  // res.setHeader("Content-Type", "text/xml");
   // Send the XML to the browser
-  res.write(sitemap);
+  // res.write(sitemap);
   res.end();
 
   return {

@@ -1,5 +1,9 @@
 import { AxiosError, AxiosRequestConfig } from "axios";
-import { getAllSummariesApiFacade } from "../openapi/config";
+import {
+  AppApiError,
+  AppApiResponse,
+  getAllSummariesApiFacade,
+} from "../app-api";
 import {
   ArticleSummariesResponse,
   DefaultApiAxiosParamCreator as ArticleAxiosApi,
@@ -13,7 +17,7 @@ export type ApiResponse<T> = {
 export const getSummaries = async (
   page: number = 1,
   limit: number = 10
-): Promise<ArticleSummariesResponse | null> => {
+): Promise<AppApiResponse<ArticleSummariesResponse>> => {
   const options: AxiosRequestConfig = {
     params: {
       page,
@@ -21,14 +25,5 @@ export const getSummaries = async (
     },
   };
 
-  try {
-    const res = await getAllSummariesApiFacade(options);
-
-    return res.data ?? null;
-  } catch (error: any) {
-    const typedErr = error as AxiosError;
-    console.log(typedErr.message);
-    console.log(typedErr.request);
-    return null;
-  }
+  return await getAllSummariesApiFacade(options);
 };

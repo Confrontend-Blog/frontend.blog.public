@@ -1,4 +1,4 @@
-import { getArticleByIdApiFacade } from "../openapi/config";
+import { getArticleByIdApiFacade } from "../app-api";
 import {
   ArticleDto,
   DefaultApiFp as ArticlesApi,

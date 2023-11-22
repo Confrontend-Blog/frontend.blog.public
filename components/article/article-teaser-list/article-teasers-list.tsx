@@ -1,22 +1,24 @@
-import { useEffect, useState } from "react";
 import ArticleTeaser from "../article-teaser/article-teaser";
 
 import * as S from "./article-teasers-list.styled";
 import Pagination from "../../shared/pagination/pagination";
-import { useData } from "@/hooks/use-data";
 import { ArticleSummaryDto } from "@/api/openapi/generated-clients";
+import { useContext } from "react";
+import { DataContext } from "@/providers/data-provider";
 
 function ArticleTeasersList() {
-  const summaries = useData();
+  const { articleSummaries } = useContext(DataContext);
+
+  const { data, error } = articleSummaries;
 
   return (
     <>
-      {summaries.api && summaries.api.status === "loading" ? (
+      {error ? (
         <S.TeaserListWrapper />
       ) : (
         <>
-          {summaries.data &&
-            summaries.data.summaries.map(
+          {data &&
+            data.summaries.map(
               ({
                 title,
                 summary,
@@ -35,18 +37,13 @@ function ArticleTeasersList() {
                     date={date}
                     slug={slug}
                     author={author}
-                    loading={
-                      summaries.api && summaries.api.status === "loading"
-                    }
+                    loading={false}
                   />
                   <S.TeaserDivider />
                 </span>
               )
             )}
-          <Pagination
-            isLoading={summaries.api && summaries.api.status === "loading"}
-            total={(summaries.data && summaries.data.count) || 1}
-          />
+          <Pagination isLoading={false} total={(data && data.count) || 1} />
         </>
       )}
     </>

@@ -1,23 +1,17 @@
 import { getSummaries } from "@/api/clients/get-article-summaries";
 import { ArticleSummariesResponse } from "@/api/openapi/generated-clients";
-import { DataContext } from "@/hooks/use-data";
+import { DataContext } from "@/providers/data-provider";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
 import Blog from "../components/blog/blog-page";
+import { AppApiResponse } from "@/api/app-api";
 
 const PAGINATION_LIMIT = 5;
 
-type HomeProps = {
-  summaries: {
-    data: ArticleSummariesResponse;
-    api: { status: string; error: null; timestamp: null };
-  };
-};
-
-// Frontend
-export default function Home({ summaries }: HomeProps) {
+// Client
+export default function Home(res: AppApiResponse<ArticleSummariesResponse>) {
   return (
-    <DataContext.Provider value={summaries}>
+    <DataContext.Provider value={{ articleSummaries: res }}>
       <Blog />
     </DataContext.Provider>
   );
@@ -29,37 +23,12 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const page = context?.query?.page || 1;
 
-  try {
-    const apiResponse = await getSummaries(
-      parseInt(page as string, 10),
-      PAGINATION_LIMIT
-    );
+  const apiResponse = await getSummaries(
+    parseInt(page as string, 10),
+    PAGINATION_LIMIT
+  );
 
-    return {
-      props: {
-        summaries: {
-          data: apiResponse ?? null,
-          api: { status: "succeeded", error: null, timestamp: null },
-        },
-      },
-    };
-  } catch (error) {
-    console.log(
-      "File: index.tsx, funciton: getServerSideProps value:error:",
-      error
-    );
-
-    return {
-      props: {
-        summaries: {
-          data: null,
-          api: {
-            status: "failed",
-            error: JSON.stringify(error),
-            timestamp: null,
-          },
-        },
-      },
-    };
-  }
+  return {
+    props: apiResponse,
+  };
 };

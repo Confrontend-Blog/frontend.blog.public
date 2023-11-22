@@ -13,6 +13,12 @@ const AppGlobalStyle = createGlobalStyle`
   p {
     font-family: "Source Sans Pro", sans-serif;
   }
+
+  a {
+    text-decoration: none;
+    color: #0384fc;
+  }
+
 `;
 
 export { AppGlobalStyle };

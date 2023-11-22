@@ -42,7 +42,7 @@ export const TeaserContainer = styled.article`
 `;
 
 export const StyledLink = styled(Link)`
-  /* margin-inline-start: 1em; */
+  text-decoration: none;
 `;
 
 export const Summary = styled.span`
